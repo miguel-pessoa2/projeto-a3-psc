@@ -1,0 +1,117 @@
+create database projeto;
+create table usuarios(
+user_id int primary key auto_increment,
+acesso enum("admin", "usuario") not null,
+nome varchar(50) unique not null,
+senha varchar(50) not null,
+interesse1 enum("iaresponsavel", "ciberseguranca", "privacidade&etica"),
+interesse2 enum("iaresponsavel", "ciberseguranca", "privacidade&etica"),
+ativo boolean not null
+);
+
+create table recurso(
+recurso_id int primary key auto_increment,
+titulo varchar(100) not null,
+autor varchar(100) not null,
+descricao varchar(200),
+categoria enum("iaresponsavel", "ciberseguranca", "privacidade&etica"),
+comentario varchar(200),
+link_recurso varchar(200) not null,
+data_postagem timestamp default current_timestamp,
+fk_user_id int,
+foreign key (fk_user_id) references usuarios(user_id) on delete cascade
+);
+
+INSERT INTO recurso (titulo, autor, descricao, categoria, comentario, link_recurso, fk_user_id) VALUES
+('Guia de IA Responsável', 'Dr. Alan Turing', 'Princípios e práticas essenciais de IA ética.', 'iaresponsavel', 'Leitura essencial para desenvolvedores.', 'http://recurso.ia-responsavel.org/guia', 1),
+('Fundamentos de Cibersegurança', 'Grace Hopper', 'Introdução aos conceitos básicos e ameaças atuais.', 'ciberseguranca', 'Muito útil para iniciantes.', 'http://recurso.ciberseguranca.org/fundamentos', 2),
+('LGPD e Práticas de Privacidade', 'Ada Lovelace', 'Análise das regulamentações globais de privacidade.', 'privacidade&etica', 'Discussão profunda sobre o impacto legal.', 'http://recurso.privacidade-etica.org/lgpd', 3),
+('Ferramentas de Auditoria de IA', 'John Von Neumann', 'Revisão das melhores ferramentas para checar viés em modelos.', 'iaresponsavel', 'Essencial para a conformidade e testes.', 'http://recurso.ia-responsavel.org/auditoria', 4),
+('Técnicas Avançadas de Pentest', 'Linus Torvalds', 'Metodologias detalhadas de teste de intrusão.', 'ciberseguranca', 'Conteúdo para profissionais experientes.', 'http://recurso.ciberseguranca.org/pentest', 5),
+('Ética em Algoritmos de Recomendação', 'Katherine Johnson', 'Estudo sobre os impactos sociais dos algoritmos.', 'privacidade&etica', 'Excelente para debates acadêmicos.', 'http://recurso.privacidade-etica.org/algoritmos', 6),
+('Frameworks para IA Confiável', 'Donald Knuth', 'Comparativo de frameworks open-source para transparência.', 'iaresponsavel', 'Foco na interpretabilidade (XAI).', 'http://recurso.ia-responsavel.org/frameworks', 7),
+('Segurança em Nuvem Híbrida', 'Vint Cerf', 'Melhores práticas para ambientes multi-cloud.', 'ciberseguranca', 'Dicas práticas de configuração e defesa.', 'http://recurso.ciberseguranca.org/nuvem-hibrida', 8),
+('O Futuro da Identidade Digital', 'Radia Perlman', 'Como a biometria e o blockchain moldam a identidade.', 'privacidade&etica', 'Visão de futuro e desafios de controle.', 'http://recurso.privacidade-etica.org/identidade', 9),
+('Mitigação de Viés em Dataset', 'Tim Berners-Lee', 'Passos práticos para limpar e balancear grandes datasets.', 'iaresponsavel', 'Fácil de aplicar em projetos de ML.', 'http://recurso.ia-responsavel.org/dataset', 10),
+('Resposta a Incidentes de Segurança', 'Whitfield Diffie', 'Plano de ação detalhado após uma violação de dados.', 'ciberseguranca', 'Modelo de documentação de IR.', 'http://recurso.ciberseguranca.org/ir-plano', 1),
+('Direito Digital e Propriedade', 'Leonard Kleinrock', 'Como proteger criações e dados no ambiente online.', 'privacidade&etica', 'Sem comentários adicionais.', 'http://recurso.privacidade-etica.org/direito-digital', 2),
+('Boas Práticas de Explicação (XAI)', 'Judea Pearl', 'Artigo acadêmico sobre modelos explicáveis.', 'iaresponsavel', 'Artigo denso, mas muito recompensador.', 'http://recurso.ia-responsavel.org/xai-artigo', 3),
+('Manual de Threat Hunting', 'Ronald L. Rivest', 'Técnicas proativas para caçar ameaças em redes.', 'ciberseguranca', 'Excelente para equipes SOC avançadas.', 'http://recurso.ciberseguranca.org/threat-hunting', 4),
+('Consentimento e Transparência', 'Adi Shamir', 'Como garantir a autodeterminação informativa do usuário.', 'privacidade&etica', 'Foco na usabilidade do pop-up de cookies.', 'http://recurso.privacidade-etica.org/consentimento', 5),
+('Monitoramento Contínuo de Viés', 'Geoffrey Hinton', 'Implementando pipelines MLOps para detectar desvios.', 'iaresponsavel', 'Para equipes de produção em larga escala.', 'http://recurso.ia-responsavel.org/monitoramento-bias', 6),
+('Criptografia Pós-Quântica', 'Shafrira Goldwasser', 'Visão geral das novas técnicas de criptografia.', 'ciberseguranca', 'Novidades e tendências para o futuro.', 'http://recurso.ciberseguranca.org/pos-quantica', 7),
+('Regras de Transferência Internacional', 'Silvio Micali', 'Guia para empresas que operam globalmente.', 'privacidade&etica', 'Detalhes sobre cláusulas contratuais padrão.', 'http://recurso.privacidade-etica.org/transferencia', 8),
+('IA e Discriminação: Estudos', 'Yann LeCun', 'Exemplos reais de falhas éticas em sistemas de IA.', 'iaresponsavel', 'Casos chocantes de algoritmos preconceituosos.', 'http://recurso.ia-responsavel.org/estudos-caso', 9),
+('Hardening de Servidores Linux', 'Sergey Brin', 'Passo a passo para fortalecer a segurança de um SO.', 'ciberseguranca', 'Comandos essenciais e dicas de firewall.', 'http://recurso.ciberseguranca.org/hardening-linux', 10),
+('Política de Retenção de Dados', 'Larry Page', 'Como definir um ciclo de vida para os dados pessoais.', 'privacidade&etica', 'Prático e focado em conformidade legal.', 'http://recurso.privacidade-etica.org/retencao', 1),
+('Desenvolvimento de Modelos Fair', 'Fei-Fei Li', 'Metodologias de desenvolvimento voltadas para a equidade.', 'iaresponsavel', 'Abordagem matemática da justiça algorítmica.', 'http://recurso.ia-responsavel.org/modelos-fair', 2),
+('Engenharia Social: Defesa', 'Dennis Ritchie', 'Como prevenir ataques baseados em manipulação humana.', 'ciberseguranca', 'Melhores treinamentos de conscientização.', 'http://recurso.ciberseguranca.org/engenharia-social', 3),
+('Anonimização vs. Pseudonimização', 'Ken Thompson', 'Diferenças e aplicações de cada técnica de proteção.', 'privacidade&etica', 'Explicação clara e exemplos práticos.', 'http://recurso.privacidade-etica.org/anonimizacao', 4),
+('Framework do NIST para IA', 'Barbara Liskov', 'Guia de gerenciamento de risco para sistemas de IA.', 'iaresponsavel', 'Framework robusto e obrigatório para projetos.', 'http://recurso.ia-responsavel.org/nist-ai', 5),
+('Teste de Penetração em APIs', 'Robert Metcalfe', 'Checklist de vulnerabilidades comuns em APIs REST.', 'ciberseguranca', 'Detalhes sobre autenticação e injeção SQL.', 'http://recurso.ciberseguranca.org/pentest-api', 6),
+('Impacto da IA na Autonomia', 'Shafi Goldwasser', 'Reflexão sobre as decisões tomadas por máquinas.', 'privacidade&etica', 'Ensaio filosófico sobre a ética da máquina.', 'http://recurso.privacidade-etica.org/autonomia', 7),
+('Ética em Veículos Autônomos', 'Andrew Ng', 'O dilema do bonde aplicado a carros sem motorista.', 'iaresponsavel', 'Artigo sobre dilemas de segurança e moral.', 'http://recurso.ia-responsavel.org/carros-autonomos', 8),
+('Defesas contra Ransomware', 'Jennifer Doudna', 'Estratégias atuais de backup e recuperação de dados.', 'ciberseguranca', 'Foco em imutabilidade e segmentação de rede.', 'http://recurso.ciberseguranca.org/ransomware-defesa', 9),
+('Princípios da Privacidade by Design', 'Emmanuelle Charpentier', 'Guia para incorporar privacidade no design do produto.', 'privacidade&etica', 'Sete princípios fundamentais e práticos.', 'http://recurso.privacidade-etica.org/pb-design', 10),
+('Regulamento Europeu de IA (AI Act)', 'Jeffrey Dean', 'Análise detalhada da nova lei da União Europeia.', 'iaresponsavel', 'O mais recente em legislação de IA.', 'http://recurso.ia-responsavel.org/ai-act', 1),
+('Segurança de Dispositivos IoT', 'Sanjay Ghemawat', 'Checklist de vulnerabilidades em dispositivos inteligentes.', 'ciberseguranca', 'Atenção especial a firmware desatualizado.', 'http://recurso.ciberseguranca.org/iot-seguranca', 2),
+('Relatório de Impacto de Privacidade', 'Corrado Böhm', 'Exemplo de como elaborar um DPIA/RIPD.', 'privacidade&etica', 'Modelo de documento de conformidade.', 'http://recurso.privacidade-etica.org/relatorio-dpia', 3),
+('Interpretabilidade para Crédito', 'Leslie Lamport', 'Técnicas LIME e SHAP aplicadas a finanças.', 'iaresponsavel', 'Como justificar uma recusa de crédito.', 'http://recurso.ia-responsavel.org/interpretabilidade-credito', 4),
+('Monitoramento de Logs e SIEM', 'Barbara W. Mclintock', 'Guia para configurar um sistema de gerenciamento de eventos.', 'ciberseguranca', 'Dicas sobre regras de correlação avançadas.', 'http://recurso.ciberseguranca.org/siem-guia', 5),
+('Transparência Algorítmica', 'Rosalind Franklin', 'Abertura de código e dados em sistemas governamentais.', 'privacidade&etica', 'Foco na responsabilidade pública e social.', 'http://recurso.privacidade-etica.org/setor-publico', 6),
+('Avaliação de Risco de IA', 'Claude Shannon', 'Metodologia para mapear riscos de sistemas de IA.', 'iaresponsavel', 'Muito detalhado, para DPOs e gestores.', 'http://recurso.ia-responsavel.org/risco-impacto', 7),
+('Defesa contra Ataques de Dia Zero', 'Alan Kay', 'Estratégias para mitigar vulnerabilidades desconhecidas.', 'ciberseguranca', 'Uso de sandboxing e análise heurística.', 'http://recurso.ciberseguranca.org/dia-zero', 8),
+('Ética em Coleta de Dados', 'Shubha T. Kulkarni', 'Diretrizes sobre o uso justo de dados pessoais.', 'privacidade&etica', 'Dicas para termos de serviço transparentes.', 'http://recurso.privacidade-etica.org/coleta-etica', 9),
+('Modelos de Decisão Explicável', 'Demetri Terzopoulos', 'Como transformar caixas-pretas em modelos transparentes.', 'iaresponsavel', 'Excelente para pesquisa e implementação.', 'http://recurso.ia-responsavel.org/modelos-explicaveis', 10),
+('Segurança de Redes Industriais (OT)', 'Yuri Geller', 'Ameaças e proteções para sistemas SCADA/OT.', 'ciberseguranca', 'Foco na convergência IT/OT e desafios.', 'http://recurso.ciberseguranca.org/ot-seguranca', 1),
+('O Paradoxo da Privacidade', 'Jaron Lanier', 'Discussão sobre a dificuldade de manter a privacidade.', 'privacidade&etica', 'Livro de crítica à tecnologia e vigilância.', 'http://recurso.privacidade-etica.org/paradoxo', 2),
+('Ferramentas de Medição de Justeza', 'Yoshihisa Ishida', 'Comparação de bibliotecas como AIF360 e Fairlearn.', 'iaresponsavel', 'Prático e técnico para desenvolvedores.', 'http://recurso.ia-responsavel.org/ferramentas-fairness', 3),
+('Introdução ao Hacking Ético', 'Kevin Mitnick', 'Primeiros passos e ferramentas para testes de segurança.', 'ciberseguranca', 'Conteúdo introdutório de alta qualidade.', 'http://recurso.ciberseguranca.org/hacking-etico-intro', 4),
+('Aspectos Éticos do Facial', 'Cynthia Breazeal', 'Debate sobre vigilância e direitos individuais.', 'privacidade&etica', 'Recurso muito relevante atualmente.', 'http://recurso.privacidade-etica.org/reconhecimento-facial', 5),
+('Viés de Gênero em IA', 'Vera Rubin', 'Pesquisa sobre desigualdade algorítmica por gênero.', 'iaresponsavel', 'Dados estatísticos alarmantes e soluções.', 'http://recurso.ia-responsavel.org/genero-ia', 6),
+('Guia de Criptografia para Devs', 'Bruce Schneier', 'Como implementar criptografia corretamente no código.', 'ciberseguranca', 'Evitando erros comuns de implementação.', 'http://recurso.ciberseguranca.org/cripto-dev', 7),
+('A Desinformação e Plataformas', 'Elon Musk', 'Responsabilidade das empresas de tecnologia em fake news.', 'privacidade&etica', 'Artigo de opinião e propostas de solução.', 'http://recurso.privacidade-etica.org/desinformacao', 8),
+('Checklist de Conformidade AI Act', 'Sam Altman', 'Passos práticos para se adequar à regulamentação.', 'iaresponsavel', 'Fácil de seguir para equipes de projeto.', 'http://recurso.ia-responsavel.org/checklist-ai-act', 9),
+('Hardening de Containers', 'Brendan Eich', 'Segurança em Docker e Kubernetes.', 'ciberseguranca', 'Foco em imagens e runtime de containers.', 'http://recurso.ciberseguranca.org/containers-seguranca', 10);
+
+-- TABELA: USUARIOS
+
+-- 1. Administrador (Ativo) com foco em Cibersegurança
+INSERT INTO usuarios (acesso, nome, senha, interesse1, interesse2, ativo)
+VALUES ('admin', 'alice_santos', 'adminPass#1', 'ciberseguranca', 'iaresponsavel', TRUE);
+
+-- 2. Usuário Comum (Ativo) com foco em Privacidade
+INSERT INTO usuarios (acesso, nome, senha, interesse1, interesse2, ativo)
+VALUES ('usuario', 'brunofreire', 'userPass$2', 'privacidade&etica', 'iaresponsavel', TRUE);
+
+-- 3. Administrador (Ativo) com interesses iguais
+INSERT INTO usuarios (acesso, nome, senha, interesse1, interesse2, ativo)
+VALUES ('admin', 'carlos_ia', 'adminPass#3', 'iaresponsavel', 'iaresponsavel', TRUE);
+
+-- 4. Usuário Comum (Inativo)
+INSERT INTO usuarios (acesso, nome, senha, interesse1, interesse2, ativo)
+VALUES ('usuario', 'dianalima', 'oldPass%4', 'ciberseguranca', 'privacidade&etica', FALSE);
+
+-- 5. Usuário Comum (Ativo) sem segundo interesse (ou interesse neutro)
+INSERT INTO usuarios (acesso, nome, senha, interesse1, interesse2, ativo)
+VALUES ('usuario', 'eduardomota', 'securePass$5', 'privacidade&etica', 'ciberseguranca', TRUE);
+
+-- 6. Administrador (Inativo)
+INSERT INTO usuarios (acesso, nome, senha, interesse1, interesse2, ativo)
+VALUES ('admin', 'fernandaj', 'inactive#6', 'iaresponsavel', 'ciberseguranca', FALSE);
+
+-- 7. Usuário Comum (Ativo) foco em Cibersegurança
+INSERT INTO usuarios (acesso, nome, senha, interesse1, interesse2, ativo)
+VALUES ('usuario', 'gustavoc', 'gustavoPass7', 'ciberseguranca', 'iaresponsavel', TRUE);
+
+-- 8. Usuário Comum (Ativo) com nome curto
+INSERT INTO usuarios (acesso, nome, senha, interesse1, interesse2, ativo)
+VALUES ('usuario', 'hugo_p', 'hugoPass!8', 'iaresponsavel', 'privacidade&etica', TRUE);
+
+-- 9. Administrador (Ativo) de teste
+INSERT INTO usuarios (acesso, nome, senha, interesse1, interesse2, ativo)
+VALUES ('admin', 'isabelatest', 'isoPass#9', 'privacidade&etica', 'iaresponsavel', TRUE);
+
+-- 10. Usuário Comum (Ativo) foco em Ética
+INSERT INTO usuarios (acesso, nome, senha, interesse1, interesse2, ativo)
+VALUES ('usuario', 'juliamarques', 'julPass$10', 'privacidade&etica', 'ciberseguranca', TRUE);
