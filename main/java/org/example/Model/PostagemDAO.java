@@ -3,7 +3,6 @@ package org.example.Model;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class PostagemDAO {
 
@@ -11,10 +10,15 @@ public class PostagemDAO {
 
     public List<Postagem> buscarPostagens(int limite){
         List<Postagem> postagens = new ArrayList<>();
-        String SQL = "select * from recurso;";
+        String SQL = "select r.recurso_id, r.titulo, r.autor, r.descricao, r.categoria, r.comentario, r.link_recurso, r.data_postagem, r.recurso_id,\n" +
+                "u.nome as user_nome, u.user_id as id_user\n" +
+                "from\n" +
+                "recurso r\n" +
+                "join\n" +
+                "usuarios u on r.fk_user_id = u.user_id;";
 
         try(Connection conn = cf.createConnection();
-            PreparedStatement ps = conn.prepareStatement(SQL);){
+            PreparedStatement ps = conn.prepareStatement(SQL)){
 
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
@@ -34,23 +38,23 @@ public class PostagemDAO {
                 String comentarios = rs.getString("comentario");
                 String linkRecurso = rs.getString("link_recurso");
                 String data = rs.getString("data_postagem");
-                int userId = rs.getInt("fk_user_id");
+                int userId = rs.getInt("id_user");
+                int recursoId = rs.getInt("recurso_id");
+                String userNome = rs.getString("user_nome");
 
-                Postagem p = new Postagem(titulo, autor, descricao, categoria, comentarios, linkRecurso, data, userId);
-
+                Postagem p = new Postagem(titulo, autor, descricao,
+                        categoria, comentarios, linkRecurso, data,
+                        userNome, userId, recursoId);
                 postagens.add(p);
             }
-
-        }
-
-        catch(SQLException exc){
+        } catch(SQLException exc){
             System.out.println("Erro sql: " + exc.getMessage());
         }
 
         return postagens;
     }
 
-    public void postarRecurso(Postagem post, Usuario user){
+    public void postarRecurso(Postagem post, Usuario user) throws SQLException{
 
         String sql = "insert into recurso (titulo, autor, descricao, categoria, comentario, link_recurso, fk_user_id) values (?, ?, ?, ?, ?, ?, ?);";
 
@@ -69,8 +73,18 @@ public class PostagemDAO {
             ps.executeUpdate();
 
         }
-        catch(SQLException exc){
-            System.out.println("Erro ao criar postagem: " + exc.getMessage());
+    }
+
+    public void deletarRecurso(int id){
+        final String SQL = "delete from recurso where recurso_id = ?;";
+
+        try(Connection conn = cf.createConnection();
+            PreparedStatement ps = conn.prepareStatement(SQL)){
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+        } catch (SQLException exc){
+            System.out.println("Erro ao deletar postagem: " + exc.getMessage());
         }
     }
 }

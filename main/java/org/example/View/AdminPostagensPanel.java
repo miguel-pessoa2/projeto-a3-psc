@@ -1,5 +1,6 @@
 package org.example.View;
 
+import org.example.Controller.AdminController;
 import org.example.Controller.ColaboradorController;
 import org.example.Model.Postagem;
 
@@ -10,51 +11,16 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.util.List;
 
-public class ColaboradorPanel extends JPanel {
-
-    private JPanel headerPanel;
-    private JLabel tituloLabel;
-    private JButton criarPostagemBtn;
-    private JButton sairBtn;
-
+public class AdminPostagensPanel extends JPanel{
     private JSplitPane centralSplitPane;
     private FiltroPanel filtroPanel;
     private JPanel postagensPanel;
     private JScrollPane scrollPane;
-    private ColaboradorController controller;
+    private AdminController controller;
 
-    public ColaboradorPanel(ColaboradorController controller){
+    public AdminPostagensPanel(AdminController controller){
         setLayout(new BorderLayout(0, 10));
         this.controller = controller;
-
-        // 1. Configuração do Painel do Cabeçalho
-        headerPanel = new JPanel();
-        headerPanel.setLayout(new BorderLayout());
-        headerPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
-
-        tituloLabel = new JLabel("Área do Colaborador - Feed", SwingConstants.CENTER);
-        tituloLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        headerPanel.add(tituloLabel, BorderLayout.CENTER);
-
-        JPanel actionButtonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
-        criarPostagemBtn = new JButton("Postar Novo Recurso");
-
-        criarPostagemBtn.setBackground(new Color(60, 179, 113));
-        criarPostagemBtn.setForeground(Color.WHITE);
-        criarPostagemBtn.setFont(new Font("Arial", Font.BOLD, 12));
-        criarPostagemBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        criarPostagemBtn.addActionListener(e -> controller.listenerCriarPostagemButton());
-
-        sairBtn = new JButton("Sair");
-        sairBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        sairBtn.addActionListener(e -> controller.fazerLogout());
-
-        actionButtonsPanel.add(criarPostagemBtn);
-        actionButtonsPanel.add(sairBtn);
-        headerPanel.add(actionButtonsPanel, BorderLayout.EAST);
-
-        // 2. Configuração da Área Central (Filtros + Postagens)
 
         postagensPanel = new JPanel();
         postagensPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -64,7 +30,7 @@ public class ColaboradorPanel extends JPanel {
         scrollPane.setPreferredSize(new Dimension(550, 450));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1)); // Borda sutil
+        scrollPane.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 
         JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
         verticalScrollBar.setUnitIncrement(40);
@@ -72,16 +38,21 @@ public class ColaboradorPanel extends JPanel {
         filtroPanel = new FiltroPanel();
 
         centralSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, filtroPanel, scrollPane);
-        centralSplitPane.setDividerLocation(250); // Define a largura inicial do painel de filtros
-        centralSplitPane.setOneTouchExpandable(true); // Adiciona um botão para expandir/colapsar
-        centralSplitPane.setResizeWeight(0.0); // Garante que apenas o scrollPane se expanda
+        centralSplitPane.setDividerLocation(250);
+        centralSplitPane.setOneTouchExpandable(true);
+        centralSplitPane.setResizeWeight(0.0);
         centralSplitPane.setEnabled(false);
 
-        add(headerPanel, BorderLayout.NORTH);
-        add(centralSplitPane, BorderLayout.CENTER); // Adicionamos o JSplitPane
+        centralSplitPane.addPropertyChangeListener(JSplitPane.DIVIDER_LOCATION_PROPERTY, evt -> {
+            int dividerLocation = (int) evt.getNewValue();
+            if (dividerLocation > 350) {
+                centralSplitPane.setDividerLocation(350);
+            }
+        });
+
+        add(centralSplitPane, BorderLayout.CENTER);
     }
 
-    // Este método é chamado pelo controller após a busca de postagens no banco
     public void updatePostagensList(List<Postagem> postagens){
 
         postagensPanel.removeAll();
@@ -101,7 +72,7 @@ public class ColaboradorPanel extends JPanel {
             postPanel.setLayout(new BorderLayout(5, 5));
             postPanel.setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createEtchedBorder(),
-                    BorderFactory.createEmptyBorder(12, 12, 12, 12) // Padding interno
+                    BorderFactory.createEmptyBorder(12, 12, 12, 12)
             ));
             postPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -167,18 +138,16 @@ public class ColaboradorPanel extends JPanel {
 
             JPanel postFooter = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-            if(p.getUserId() == controller.getUsuarioId()){
-                JButton excluirButton = new JButton("Excluir Postagem");
-                excluirButton.setForeground(Color.RED);
-                excluirButton.setFont(new Font("Arial", Font.BOLD, 12));
-                excluirButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            JButton excluirButton = new JButton("Excluir Postagem");
+            excluirButton.setForeground(Color.RED); // Destaca a ação destrutiva
+            excluirButton.setFont(new Font("Arial", Font.BOLD, 12));
+            excluirButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
                 excluirButton.addActionListener(e -> {
                     controller.listenerDeletarPostagemButton(p);
                 });
 
-                postFooter.add(excluirButton);
-            }
+            postFooter.add(excluirButton);
 
             JButton copiarBtn = new JButton("Copiar Link");
             copiarBtn.addActionListener(e -> {
@@ -200,6 +169,7 @@ public class ColaboradorPanel extends JPanel {
                             JOptionPane.ERROR_MESSAGE);
                 }
             });
+
             copiarBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
             postFooter.add(copiarBtn);
 

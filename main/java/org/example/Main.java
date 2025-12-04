@@ -2,7 +2,6 @@
 
 package org.example;
 
-import org.example.Controller.ColaboradorController;
 import org.example.Controller.MainController;
 
 public class Main {
@@ -10,5 +9,4 @@ public class Main {
 
         new MainController();
     }
-
 }

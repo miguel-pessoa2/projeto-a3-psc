@@ -2,7 +2,6 @@
 
 package org.example.Controller;
 
-import org.example.Model.ConnectionFactory;
 import org.example.Model.Usuario;
 import org.example.Model.UsuarioDAO;
 import org.example.View.LoginPanel;
@@ -13,16 +12,13 @@ import java.sql.*;
 public class MainController {
     private JFrame frame;
     private LoginPanel loginPanel;
-    private ConnectionFactory cf;
     private UsuarioDAO usuarioDAO;
 
-    //controller chamado no ponto de entrada da aplicação
     public MainController(){
-        cf = new ConnectionFactory();
         usuarioDAO = new UsuarioDAO();
         frame = new JFrame("Login");
-        loginPanel = new LoginPanel(this);
-        loginPanel.setLoginListener(e -> fazerLogin());
+        loginPanel = new LoginPanel();
+        loginPanel.getLoginButton().addActionListener(e -> listenerLoginButton());
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(loginPanel);
@@ -31,20 +27,45 @@ public class MainController {
         frame.setVisible(true);
     }
 
-    public void fazerLogin(){
+    public void listenerLoginButton(){
 
-        String username = loginPanel.getUserInput();
-        String password = loginPanel.getPassInput();
+        String username = loginPanel.getUsuarioInput().trim();
+        String password = loginPanel.getSenhaInput();
 
-        Usuario usuario = usuarioDAO.autenticarUsuario(username, password);
-
-        if(usuario != null){
-            getControllerPorUsuario(usuario);
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(frame,
+                "Preencha todos os campos.",
+                "Login Inválido",
+                JOptionPane.WARNING_MESSAGE);
+            return;
         }
-        else{
-            System.out.println("Login incorreto.");
-        }
 
+        try {
+            Usuario user = usuarioDAO.autenticarUsuario(username, password);
+
+            if (user == null) {
+                JOptionPane.showMessageDialog(frame,
+                    "Usuário ou senha incorretos.",
+                    "Login Inválido",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (user.isAtivo()){
+                getControllerPorUsuario(user);
+            } else {
+                JOptionPane.showMessageDialog(frame,
+                    "A sua conta (" + user.getNome() + ") está inativa. \nProcure um administrador para reativar.",
+                    "Conta Inativa",
+                    JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        catch(SQLException exc){
+            JOptionPane.showMessageDialog(frame,
+                "Erro de conexão com o banco de dados. Tente novamente mais tarde.",
+                "Erro Crítico",
+                JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void getControllerPorUsuario(Usuario user){
@@ -53,12 +74,16 @@ public class MainController {
         if(user.isColaborador()){
             new ColaboradorController(user);
         }
+
         else if(user.isAdministrador()){
             new AdminController(user);
         }
+
         else{
-            System.out.println("Erro inesperado ao criar controller.");
+            JOptionPane.showMessageDialog(frame,
+                "Houve um erro inesperadoao fazer login.",
+                "Ocorreu um Erro",
+                JOptionPane.ERROR_MESSAGE);
         }
     }
-
 }

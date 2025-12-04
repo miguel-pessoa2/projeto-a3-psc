@@ -1,22 +1,26 @@
 package org.example.View;
 
+import org.example.Model.FiltroData;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class FiltroPanel extends JPanel {
 
-    // Componentes de filtro
     private JTextField tituloFilterField;
     private JTextField autorFilterField;
+    private JTextField criadorFilterField;
     private JComboBox<String> categoriaFilterBox;
-    private JTextField dataFilterField;
 
-    // Componentes de seleção (CheckBox)
     private JCheckBox tituloCheckBox;
     private JCheckBox autorCheckBox;
     private JCheckBox categoriaCheckBox;
-    private JCheckBox dataCheckBox;
+    private JCheckBox criadorCheckBox;
+    private JCheckBox minhasPostagensCheckBox;
+    private JCheckBox meusInteressesCheckBox;
+
+    private JButton filterButton;
 
     public FiltroPanel() {
         setLayout(new BorderLayout());
@@ -30,11 +34,10 @@ public class FiltroPanel extends JPanel {
                 Color.DARK_GRAY
         ));
 
-        setPreferredSize(new Dimension(300, 0)); // Aumentado ligeiramente para acomodar o CheckBox
+        setPreferredSize(new Dimension(300, 0));
         setMinimumSize(new Dimension(150, 0));
         setMaximumSize(new Dimension(400, 0));
 
-        // Painel interno que usará GridBagLayout para organizar os campos e CheckBoxes
         JPanel filterFieldsPanel = new JPanel(new GridBagLayout());
         filterFieldsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -46,47 +49,49 @@ public class FiltroPanel extends JPanel {
     }
 
     private void initComponents() {
-        // Inicializa os campos de entrada (Fields)
         tituloFilterField = new JTextField(10);
         autorFilterField = new JTextField(10);
-        String[] categorias = {"Todos", "IA Responsável", "Cibersegurança", "Privacidade & Ética"};
-        categoriaFilterBox = new JComboBox<>(categorias);
-        dataFilterField = new JTextField("DD/MM/AAAA", 10);
-        dataFilterField.setForeground(Color.GRAY);
+        criadorFilterField = new JTextField(10);
 
-        // Inicializa os CheckBoxes, todos desmarcados por padrão
+        String[] categorias = {"IA Responsável", "Cibersegurança", "Privacidade & Ética Digital"};
+        categoriaFilterBox = new JComboBox<>(categorias);
+
         tituloCheckBox = new JCheckBox("Filtrar por Título");
         autorCheckBox = new JCheckBox("Filtrar por Autor");
         categoriaCheckBox = new JCheckBox("Filtrar por Categoria");
-        dataCheckBox = new JCheckBox("Filtrar por Data");
+        criadorCheckBox = new JCheckBox("Filtrar por Usuário");
+        minhasPostagensCheckBox = new JCheckBox("Somente Minhas Postagens");
+        meusInteressesCheckBox = new JCheckBox("Filtrar por Meus Interesses");
 
-        // Inicialmente desabilita os campos de entrada
         tituloFilterField.setEnabled(false);
         autorFilterField.setEnabled(false);
         categoriaFilterBox.setEnabled(false);
-        dataFilterField.setEnabled(false);
+        criadorCheckBox.setEnabled(false);
 
-        // Adiciona Listeners para habilitar/desabilitar os campos
         tituloCheckBox.addActionListener(e -> tituloFilterField.setEnabled(tituloCheckBox.isSelected()));
         autorCheckBox.addActionListener(e -> autorFilterField.setEnabled(autorCheckBox.isSelected()));
         categoriaCheckBox.addActionListener(e -> categoriaFilterBox.setEnabled(categoriaCheckBox.isSelected()));
-        dataCheckBox.addActionListener(e -> dataFilterField.setEnabled(dataCheckBox.isSelected()));
+        criadorCheckBox.addActionListener(e -> criadorFilterField.setEnabled(criadorCheckBox.isSelected()));
 
-        // Listener de Foco para o placeholder da Data
-        dataFilterField.addFocusListener(new java.awt.event.FocusAdapter() {
-            @Override
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                if (dataFilterField.getText().equals("DD/MM/AAAA")) {
-                    dataFilterField.setText("");
-                    dataFilterField.setForeground(Color.BLACK);
-                }
+        minhasPostagensCheckBox.addActionListener(e -> {
+            if (minhasPostagensCheckBox.isSelected()) {
+                criadorCheckBox.setSelected(false);
+                criadorCheckBox.setEnabled(false);
+                criadorFilterField.setEnabled(false);
+
+            } else {
+                criadorCheckBox.setEnabled(true);
             }
-            @Override
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                if (dataFilterField.getText().isEmpty()) {
-                    dataFilterField.setForeground(Color.GRAY);
-                    dataFilterField.setText("DD/MM/AAAA");
-                }
+        });
+
+        meusInteressesCheckBox.addActionListener(e -> {
+            if(meusInteressesCheckBox.isSelected()){
+                categoriaCheckBox.setEnabled(false);
+                categoriaCheckBox.setSelected(false);
+                categoriaFilterBox.setEnabled(false);
+
+            } else {
+                categoriaCheckBox.setEnabled(true);
             }
         });
     }
@@ -95,14 +100,14 @@ public class FiltroPanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(4, 0, 4, 0);
-        gbc.gridx = 0; // Coluna 0: CheckBox
-        gbc.weightx = 0.0; // Não expande
+        gbc.gridx = 0;
+        gbc.weightx = 0.0;
 
         // --- 1. Título ---
         gbc.gridy = 0;
         panel.add(tituloCheckBox, gbc);
         gbc.gridy = 1;
-        gbc.weightx = 1.0; // Expande o campo de texto
+        gbc.weightx = 1.0;
         panel.add(tituloFilterField, gbc);
         gbc.weightx = 0.0;
 
@@ -122,26 +127,64 @@ public class FiltroPanel extends JPanel {
         panel.add(categoriaFilterBox, gbc);
         gbc.weightx = 0.0;
 
-        // --- 4. Data ---
+        // --- 4. Filtro por Criador ---
         gbc.gridy = 6;
-        panel.add(dataCheckBox, gbc);
+        panel.add(criadorCheckBox, gbc);
         gbc.gridy = 7;
         gbc.weightx = 1.0;
-        panel.add(dataFilterField, gbc);
+        panel.add(criadorFilterField, gbc);
         gbc.weightx = 0.0;
 
-        // --- 5. Botão de Filtrar ---
-        JButton filterButton = new JButton("Aplicar Filtros");
+        // --- 5. Somente Minhas Postagens ---
+        gbc.gridy = 8;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(10, 0, 10, 0);
+        gbc.anchor = GridBagConstraints.WEST;
+        panel.add(minhasPostagensCheckBox, gbc);
+
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(4, 0, 4, 0);
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+
+        // --- 6. Meus interesses ---
+        gbc.gridy = 9;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(10, 0, 10, 0);
+        gbc.anchor = GridBagConstraints.WEST;
+        panel.add(meusInteressesCheckBox, gbc);
+
+        // --- 7. Botão de Filtrar ---
+        filterButton = new JButton("Aplicar Filtros");
         filterButton.setBackground(new Color(60, 141, 188));
         filterButton.setForeground(Color.WHITE);
         filterButton.setFocusPainted(false);
         gbc.insets = new Insets(20, 0, 0, 0);
-        gbc.gridy = 8;
+        gbc.gridx = 0; gbc.gridy = 10;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.CENTER;
         panel.add(filterButton, gbc);
 
-        // Espaçador para empurrar tudo para cima
         gbc.weighty = 1.0;
-        gbc.gridy = 9;
+        gbc.gridy = 11;
         panel.add(Box.createVerticalGlue(), gbc);
+    }
+
+    public FiltroData getFiltroData(){
+        return new FiltroData(
+                tituloFilterField.getText(),
+                autorFilterField.getText(),
+                (String)categoriaFilterBox.getSelectedItem(),
+                criadorFilterField.getText(),
+                tituloCheckBox.isSelected(),
+                autorCheckBox.isSelected(),
+                categoriaCheckBox.isSelected(),
+                criadorCheckBox.isSelected(),
+                minhasPostagensCheckBox.isSelected(),
+                meusInteressesCheckBox.isSelected()
+        );
+    }
+    public JButton getFiltrarButton(){
+        return filterButton;
     }
 }

@@ -8,19 +8,14 @@ public class Postagem {
     private String categoria;
     private String comentarios;
     private String linkRecurso;
-    private String data = null;
+    private String data;
+    private String autorPost;
     private int userId;
+    private int postId;
 
-    public Postagem(
-        String titulo,
-        String autor,
-        String descricao,
-        String categoria,
-        String comentarios,
-        String linkRecurso,
-        String data,
-        int userId
-        ){
+    public Postagem(String titulo, String autor, String descricao,
+            String categoria, String comentarios, String linkRecurso,
+            String data, String autorPost, int userId, int postId){
 
         this.titulo = titulo;
         this.autor = autor;
@@ -29,7 +24,9 @@ public class Postagem {
         this.comentarios = comentarios;
         this.linkRecurso = linkRecurso;
         this.data = data;
+        this.autorPost = autorPost;
         this.userId = userId;
+        this.postId = postId;
     }
 
     public String getTitulo(){
@@ -47,5 +44,7 @@ public class Postagem {
     public String getComentarios() { return comentarios; }
     public String getLinkRecurso() { return linkRecurso; }
     public String getData() { return data; }
+    public String getAutorPost() {return autorPost;}
     public int getUserId() { return userId; }
+    public int getPostId() { return postId; }
 }

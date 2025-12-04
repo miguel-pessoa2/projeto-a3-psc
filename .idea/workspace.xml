@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5cf3d1c1-181a-4f2b-aee3-6156a8639a7e" name="Changes" comment="adicionado arquivo para sql">
+      <change afterPath="$PROJECT_DIR$/main/java/org/example/Model/CadastroData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/org/example/Model/FiltroData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/org/example/Model/PostagemData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/org/example/View/AdminPostagensPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/Controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/Controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/Controller/ColaboradorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/Controller/ColaboradorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/Controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/Controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/Model/Postagem.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/Model/Postagem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/Model/PostagemDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/Model/PostagemDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/Model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/Model/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/Model/UsuarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/Model/UsuarioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/Model/UsuarioTableModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/Model/UsuarioTableModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/Model/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/Model/InputValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/View/AdminPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/View/AdminPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/View/CadastrarUsuarioPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/View/CadastrarUsuarioPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/View/ColaboradorPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/View/ColaboradorPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/View/CriarPostagemPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/View/CriarPostagemPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/View/EditarUsuarioPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/View/EditarUsuarioPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/View/FiltroPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/View/FiltroPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/View/GestorPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/org/example/View/LoginPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/org/example/View/LoginPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/Controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/Controller/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/Controller/ColaboradorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/Controller/ColaboradorController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/Controller/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/Controller/MainController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/Model/Postagem.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/Model/Postagem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/Model/PostagemDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/Model/PostagemDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/Model/Usuario.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/Model/Usuario.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/Model/UsuarioDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/Model/UsuarioDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/Model/UsuarioTableModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/Model/UsuarioTableModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/Model/Utilities.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/View/AdminPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/View/AdminPanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/View/AdminPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/View/AdminPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/View/CadastrarUsuarioPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/View/CadastrarUsuarioPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/View/ColaboradorPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/View/ColaboradorPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/View/CriarPostagemPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/View/CriarPostagemPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/View/EditarUsuarioPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/View/EditarUsuarioPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/View/FiltroPanel$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/View/FiltroPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/View/FiltroPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/View/GestorPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swing/org/example/View/LoginPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swing/org/example/View/LoginPanel.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Record" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;miguel-pessoa2&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/miguel-pessoa2/projeto-a3.git&quot;,
+    &quot;accountId&quot;: &quot;78864140-1896-4494-89ff-29c36dc10066&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="34FXG7DvWMDkdDXfQdWxNelBluY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ADM/IdeaProjects/swing/src",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "Errors"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
+      <module name="swing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5cf3d1c1-181a-4f2b-aee3-6156a8639a7e" name="Changes" comment="" />
+      <created>1760810195160</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1760810195160</updated>
+    </task>
+    <task id="LOCAL-00001" summary="18-11">
+      <option name="closed" value="true" />
+      <created>1763496313747</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1763496313747</updated>
+    </task>
+    <task id="LOCAL-00002" summary="adicionado arquivo para sql">
+      <option name="closed" value="true" />
+      <created>1763497279732</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1763497279732</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="18-11" />
+    <MESSAGE value="adicionado arquivo para sql" />
+    <option name="LAST_COMMIT_MESSAGE" value="adicionado arquivo para sql" />
+  </component>
+</project>

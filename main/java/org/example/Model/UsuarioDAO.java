@@ -1,6 +1,5 @@
 package org.example.Model;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,9 +9,9 @@ import java.util.List;
 
 public class UsuarioDAO {
 
-    private ConnectionFactory cf = new ConnectionFactory();
+    private final ConnectionFactory cf = new ConnectionFactory();
 
-    public Usuario autenticarUsuario(String username, String senha){
+    public Usuario autenticarUsuario(String username, String senha) throws SQLException{
 
         final String SQL = "select user_id, acesso, nome, interesse1, interesse2, ativo from usuarios where nome = ? and senha = ?;";
 
@@ -22,22 +21,17 @@ public class UsuarioDAO {
             ps.setString(1, username);
             ps.setString(2, senha);
             ResultSet rs = ps.executeQuery();
+
             if(rs.next()){
                 return new Usuario(
-                        rs.getInt("user_id"),
-                        rs.getString("acesso"),
-                        rs.getString("nome"),
-                        rs.getString("interesse1"),
-                        rs.getString("interesse2"),
-                        rs.getBoolean("ativo")
+                    rs.getInt("user_id"),
+                    rs.getString("acesso"),
+                    rs.getString("nome"),
+                    rs.getString("interesse1"),
+                    rs.getString("interesse2"),
+                    rs.getBoolean("ativo")
                 );
             }
-
-            return null;
-
-        }
-        catch(SQLException exc){
-            System.out.println("Erro ao tentar fazer login: " + exc.getMessage());
             return null;
         }
     }
@@ -68,7 +62,6 @@ public class UsuarioDAO {
             return usuarioList;
         }
         catch(SQLException exc){
-            System.out.println("erro ao resgatar todos os usuários: " + exc);
             return new ArrayList<>();
         }
     }
@@ -84,7 +77,7 @@ public class UsuarioDAO {
         }
     }
 
-    public String updateUsuario(Usuario user){
+    public void updateUsuario(Usuario user) throws SQLException{
         final String SQL = "update usuarios set acesso = ?, nome = ?, interesse1 = ?, interesse2 = ? where user_id = ?;";
 
         try(Connection conn = cf.createConnection();
@@ -97,12 +90,6 @@ public class UsuarioDAO {
             ps.setInt(5, user.getId());
             ps.executeUpdate();
 
-            System.out.println("update sucesso");
-            return "ok";
-        }
-        catch(SQLException exc){
-            System.out.println("Erro ao salvar edições de usuário no banco: " + exc.getMessage());
-            return "fail";
         }
     }
 
@@ -132,7 +119,6 @@ public class UsuarioDAO {
             ps.setBoolean(6, true);
 
             ps.executeUpdate();
-            System.out.println("usuario cadastrado");
         }
     }
 

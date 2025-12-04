@@ -1,8 +1,7 @@
 
 
-package org.example.Model; // Sugestão de pacote
+package org.example.Model;
 
-import org.example.Model.Usuario;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -15,7 +14,6 @@ public class UsuarioTableModel extends AbstractTableModel {
         this.usuarios = usuarios;
     }
 
-    // Método para atualizar a tabela (chamado pelo Controller)
     public void setUsuarios(List<Usuario> novosUsuarios) {
         this.usuarios.clear();
         this.usuarios.addAll(novosUsuarios);
@@ -37,25 +35,43 @@ public class UsuarioTableModel extends AbstractTableModel {
         return colunas[columnIndex];
     }
 
-    // Método essencial: Mapeia o objeto Usuario para a coluna correta
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Usuario usuario = usuarios.get(rowIndex);
 
+        String acessoFormatado = switch (usuario.getAcesso()){
+            case "admin" -> "Administrador";
+            default -> "Usuário";
+        };
+
+        String interesse1Formatado = switch (usuario.getInteresse1()){
+            case "iaresponsavel" -> "IA Responsável";
+            case "ciberseguranca" -> "Cibersegurança";
+            case "privacidade&etica" -> "Privacidade & Ética";
+            default -> "Não definido";
+        };
+
+        String interesse2Formatado = switch (usuario.getInteresse2()){
+            case "iaresponsavel" -> "IA Responsável";
+            case "ciberseguranca" -> "Cibersegurança";
+            case "privacidade&etica" -> "Privacidade & Ética";
+            default -> "Não definido";
+        };
+
         return switch (columnIndex) {
             case 0 -> usuario.getId();
             case 1 -> usuario.getNome();
-            case 2 -> usuario.getAcesso();
-            case 3 -> usuario.getInteresse1();
-            case 4 -> usuario.getInteresse2();
-            case 5 -> usuario.getAtivo() ? "Ativo   " : "Inativo";
+            case 2 -> acessoFormatado;
+            case 3 -> interesse1Formatado;
+            case 4 -> interesse2Formatado;
+            case 5 -> usuario.isAtivo() ? "Ativo   " : "Inativo";
             default -> null;
         };
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        if (columnIndex == 0) return Integer.class; // ID é inteiro
+        if (columnIndex == 0) return Integer.class;
         return String.class;
     }
 
